@@ -9,7 +9,4 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
   modules: ['shadcn-nuxt'],
-  shadcn: {
-    prefix: '',
-  },
 })
