@@ -8,6 +8,7 @@ const { data: productivities } = await useFetch('/api/productivities')
       v-for="productivity in productivities"
       :key="productivity.id"
       :name="productivity.name"
+      :last-check="productivity.lastCheck"
     />
   </div>
 </template>
