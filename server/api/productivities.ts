@@ -1,6 +1,6 @@
-export default defineEventHandler((event) => {
-  return [
-    { id: 0, name: 'Calendar', lastCheck: new Date().toISOString() },
-    { id: 1, name: 'To-Do', lastCheck: new Date().toISOString() },
-  ]
+import { db } from '#server/db/client'
+import { productivitiesTable } from '#server/db/schema/productivities'
+
+export default defineEventHandler(async (event) => {
+  return await db.select().from(productivitiesTable)
 })
