@@ -3,7 +3,7 @@ const { data: productivities } = await useFetch('/api/productivities')
 </script>
 
 <template>
-  <div class="mx-auto max-w-xl flex flex-col gap-2">
+  <div class="flex flex-col gap-2">
     <ProductivityItem
       v-for="productivity in productivities"
       :key="productivity.id"
