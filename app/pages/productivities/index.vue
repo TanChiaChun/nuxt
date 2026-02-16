@@ -5,7 +5,7 @@ const { data: productivities } = await useFetch('/api/productivities')
 </script>
 
 <template>
-  <div class="mx-auto max-w-xl flex flex-col gap-3">
+  <div class="flex flex-col gap-3">
     <div class="flex justify-end">
       <UiButton variant="outline" size="icon" class="rounded-full" as-child>
         <NuxtLink to="/productivities/new">
