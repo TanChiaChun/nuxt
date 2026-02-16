@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
-import { z } from 'zod'
-
-const validationSchema = toTypedSchema(
-  z.object({
-    name: z.string().min(1, 'Name required').max(256),
-  })
-)
+import { productivitySchema } from '#shared/schemas/productivities'
 
 const { defineField, errors } = useForm({
-  validationSchema: validationSchema,
+  validationSchema: toTypedSchema(productivitySchema),
   initialValues: {
     name: '',
   },
