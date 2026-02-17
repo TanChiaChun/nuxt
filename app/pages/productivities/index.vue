@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Plus } from 'lucide-vue-next'
+import { CircleAlert, Plus } from 'lucide-vue-next'
 
-const { data: productivities } = await useFetch('/api/productivities')
+const { data: productivities, status } = await useFetch('/api/productivities')
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const { data: productivities } = await useFetch('/api/productivities')
       </UiButton>
     </div>
 
-    <div class="flex flex-col gap-2">
+    <div v-if="status === 'success'" class="flex flex-col gap-2">
       <ProductivityItem
         v-for="productivity in productivities"
         :key="productivity.id"
@@ -22,5 +22,9 @@ const { data: productivities } = await useFetch('/api/productivities')
         :last-check="productivity.lastCheck"
       />
     </div>
+    <UiAlert v-else-if="status === 'error'" variant="destructive">
+      <CircleAlert />
+      <UiAlertTitle>Error loading Productivities</UiAlertTitle>
+    </UiAlert>
   </div>
 </template>
