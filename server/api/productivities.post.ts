@@ -1,4 +1,6 @@
 import { productivitySchema } from '#shared/schemas/productivities'
+import { db } from '#server/db/client'
+import { productivitiesTable } from '../db/schema/productivities'
 
 export default defineEventHandler(async (event) => {
   const result = await readValidatedBody(event, productivitySchema.safeParse)
@@ -9,6 +11,16 @@ export default defineEventHandler(async (event) => {
       status: 400,
       statusText: 'Validation Error',
       data: result.error.issues,
+    })
+  }
+
+  try {
+    await db.insert(productivitiesTable).values(result.data)
+  } catch (e) {
+    console.error(e)
+    throw createError({
+      status: 500,
+      statusText: 'Server Error'
     })
   }
 
