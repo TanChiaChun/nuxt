@@ -4,17 +4,25 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { CircleAlert } from 'lucide-vue-next'
 import { productivitySchema } from '#shared/schemas/productivities'
 
-const { defineField, errors, handleSubmit, isSubmitting } = useForm({
+const { defineField, errors, handleSubmit, isSubmitting, values } = useForm({
   validationSchema: toTypedSchema(productivitySchema),
   initialValues: {
     name: '',
   },
 })
-
 const [name, nameAttrs] = defineField('name')
 
 const errorMessage = ref<string |null>(null)
+
+watch(values, () => {
+  if (errorMessage.value) {
+    errorMessage.value = null
+  }
+})
+
 const onSubmit = handleSubmit(async (values) => {
+  errorMessage.value = null
+
   try {
     await $fetch('/api/productivities', {
       method: 'POST',
