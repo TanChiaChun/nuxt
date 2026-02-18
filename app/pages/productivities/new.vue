@@ -28,6 +28,8 @@ const onSubmit = handleSubmit(async (values) => {
       method: 'POST',
       body: values,
     })
+
+    await navigateTo('/productivities')
   } catch {
     errorMessage.value = 'Error creating Productivity'
   }
