@@ -3,7 +3,7 @@ import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { productivitySchema } from '#shared/schemas/productivities'
 
-const { defineField, errors, handleSubmit } = useForm({
+const { defineField, errors, handleSubmit, isSubmitting } = useForm({
   validationSchema: toTypedSchema(productivitySchema),
   initialValues: {
     name: '',
@@ -36,7 +36,10 @@ const onSubmit = handleSubmit(async (values) => {
       </UiField>
 
       <UiField orientation="horizontal">
-        <UiButton type="submit">Submit</UiButton>
+        <UiButton type="submit" :disabled="isSubmitting">
+          <UiSpinner v-if="isSubmitting" />
+          Submit
+        </UiButton>
       </UiField>
     </UiFieldGroup>
   </form>
