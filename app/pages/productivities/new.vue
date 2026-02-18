@@ -2,6 +2,7 @@
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { CircleAlert } from 'lucide-vue-next'
+import { toast } from 'vue-sonner'
 import { productivitySchema } from '#shared/schemas/productivities'
 
 const { defineField, errors, handleSubmit, isSubmitting, values } = useForm({
@@ -28,6 +29,8 @@ const onSubmit = handleSubmit(async (values) => {
       method: 'POST',
       body: values,
     })
+
+    toast.success(`${values.name} successfully created`)
 
     await navigateTo('/productivities')
   } catch {
