@@ -6,13 +6,13 @@ const { data: productivities, status } = await useFetch('/api/productivities')
 
 <template>
   <div class="flex flex-col gap-3">
-    <div class="flex justify-end">
+    <ProductivityHeader>
       <UiButton variant="outline" size="icon" class="rounded-full" as-child>
         <NuxtLink to="/productivities/new">
           <Plus />
         </NuxtLink>
       </UiButton>
-    </div>
+    </ProductivityHeader>
 
     <div v-if="status === 'success'" class="flex flex-col gap-2">
       <ProductivityItem
