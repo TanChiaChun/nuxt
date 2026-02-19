@@ -6,7 +6,7 @@ const { data: productivities, status } = await useFetch('/api/productivities')
 
 <template>
   <div class="flex flex-col gap-3">
-    <ProductivityHeader>
+    <ProductivityHeader title="Key">
       <UiButton variant="outline" size="icon" class="rounded-full" as-child>
         <NuxtLink to="/productivities/new">
           <Plus />
