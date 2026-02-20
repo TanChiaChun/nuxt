@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
-import { CircleAlert } from 'lucide-vue-next'
+import { ArrowLeft, CircleAlert } from 'lucide-vue-next'
 import { toast } from 'vue-sonner'
 import { productivitySchema } from '#shared/schemas/productivities'
 
@@ -45,6 +45,16 @@ const onSubmit = handleSubmit(async (values) => {
       <CircleAlert />
       <UiAlertTitle>{{ errorMessage }}</UiAlertTitle>
     </UiAlert>
+
+    <ProductivityHeader title="New">
+      <template #prepend>
+        <UiButton variant="ghost" size="icon" class="rounded-full" as-child>
+          <NuxtLink to="/productivities">
+            <ArrowLeft />
+          </NuxtLink>
+        </UiButton>
+      </template>
+    </ProductivityHeader>
   
     <form @submit="onSubmit">
       <UiFieldGroup>
