@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { CircleAlert, Plus } from 'lucide-vue-next'
+import { CircleAlert, FolderCode, Plus } from 'lucide-vue-next'
 
 const { data: productivities, status } = await useFetch('/api/productivities')
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-5">
     <ProductivityHeader title="Key">
       <template #append>
         <UiButton variant="outline" size="icon" class="rounded-full" as-child>
@@ -17,12 +17,23 @@ const { data: productivities, status } = await useFetch('/api/productivities')
     </ProductivityHeader>
 
     <div v-if="status === 'success'" class="flex flex-col gap-2">
-      <ProductivityItem
-        v-for="productivity in productivities"
-        :key="productivity.id"
-        :name="productivity.name"
-        :last-check="productivity.lastCheck"
-      />
+      <template v-if="productivities?.length">
+        <ProductivityItem
+          v-for="productivity in productivities"
+          :key="productivity.id"
+          :name="productivity.name"
+          :last-check="productivity.lastCheck"
+        />
+      </template>
+
+      <UiEmpty v-else class="border">
+        <UiEmptyHeader>
+          <UiEmptyMedia variant="icon">
+            <FolderCode />
+          </UiEmptyMedia>
+        </UiEmptyHeader>
+        <UiEmptyTitle>No Data</UiEmptyTitle>
+      </UiEmpty>
     </div>
     <UiAlert v-else-if="status === 'error'" variant="destructive">
       <CircleAlert />
