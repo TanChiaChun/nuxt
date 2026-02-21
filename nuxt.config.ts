@@ -8,5 +8,8 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  modules: ['shadcn-nuxt'],
+  modules: [
+    '@nuxtjs/color-mode',
+    'shadcn-nuxt',
+  ],
 })
