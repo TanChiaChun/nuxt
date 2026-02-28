@@ -1,9 +1,12 @@
-import { productivitySchema } from '#shared/schemas/productivities'
+import { ProductivityPostSchema } from '#shared/schemas/productivities'
 import { db } from '#server/db/client'
 import { productivitiesTable } from '../db/schema/productivities'
 
 export default defineEventHandler(async (event) => {
-  const result = await readValidatedBody(event, productivitySchema.safeParse)
+  const result = await readValidatedBody(
+    event,
+    ProductivityPostSchema.safeParse,
+  )
 
   if (!result.success) {
     console.error(result.error.issues)

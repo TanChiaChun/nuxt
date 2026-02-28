@@ -3,15 +3,19 @@ import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { ArrowLeft, CircleAlert } from 'lucide-vue-next'
 import { toast } from 'vue-sonner'
-import { productivitySchema } from '#shared/schemas/productivities'
+import { ProductivityFormSchema } from '#shared/schemas/productivities'
+import type { ProductivityForm } from '#shared/schemas/productivities'
 
-const { defineField, errors, handleSubmit, isSubmitting, values } = useForm({
-  validationSchema: toTypedSchema(productivitySchema),
-  initialValues: {
-    name: '',
-  },
-})
+const { defineField, errors, handleSubmit, isSubmitting, values } =
+  useForm<ProductivityForm>({
+    validationSchema: toTypedSchema(ProductivityFormSchema),
+    initialValues: {
+      name: '',
+      lastCheck: new Date(),
+    },
+  })
 const [name, nameAttrs] = defineField('name')
+const [lastCheck] = defineField('lastCheck')
 
 const errorMessage = ref<string |null>(null)
 
@@ -69,6 +73,11 @@ const onSubmit = handleSubmit(async (values) => {
           />
           <UiFieldError v-if="!!errors.name" :errors="[errors.name]" />
         </UiField>
+
+        <FormDateTimePicker
+          v-model="lastCheck"
+          :error-message="errors.lastCheck"
+        />
 
         <UiField orientation="horizontal">
           <UiButton type="submit" :disabled="isSubmitting">

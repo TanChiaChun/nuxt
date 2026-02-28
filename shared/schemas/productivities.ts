@@ -1,5 +1,15 @@
 import { z } from 'zod'
 
-export const productivitySchema = z.object({
+const ProductivityBaseSchema = z.object({
   name: z.string().min(1, 'Name required').max(256),
 })
+
+export const ProductivityFormSchema = ProductivityBaseSchema.extend({
+  lastCheck: z.date(),
+})
+
+export const ProductivityPostSchema = ProductivityBaseSchema.extend({
+  lastCheck: z.coerce.date(),
+})
+
+export type ProductivityForm = z.infer<typeof ProductivityFormSchema>
