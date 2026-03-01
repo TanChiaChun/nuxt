@@ -21,8 +21,7 @@ const { data: productivities, status } = await useFetch('/api/productivities')
         <ProductivityItem
           v-for="productivity in productivities"
           :key="productivity.id"
-          :name="productivity.name"
-          :last-check="productivity.lastCheck"
+          :productivity
         />
       </template>
 

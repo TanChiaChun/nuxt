@@ -1,19 +1,16 @@
 <script setup lang="ts">
-interface Props {
-  name: string
-  lastCheck: string
-}
+import type { ProductivityResponse } from '#shared/schemas/productivities'
 
-const props = defineProps<Props>()
+const props = defineProps<{ productivity: ProductivityResponse }>()
 </script>
 
 <template>
   <UiItem variant="outline">
     <UiItemContent>
-      <UiItemTitle>{{ props.name }}</UiItemTitle>
+      <UiItemTitle>{{ props.productivity.name }}</UiItemTitle>
       <UiItemDescription>
         <NuxtTime
-          :datetime="props.lastCheck"
+          :datetime="props.productivity.lastCheck"
           year="numeric"
           month="short"
           day="numeric"
