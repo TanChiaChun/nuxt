@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { ArrowLeft } from 'lucide-vue-next'
+import type { ProductivityForm } from '#shared/schemas/productivities'
 
-const props = defineProps<{ title: string }>()
+const props = defineProps<{
+  title: string,
+  initialValues: ProductivityForm,
+}>()
 </script>
 
 <template>
@@ -16,6 +20,6 @@ const props = defineProps<{ title: string }>()
       </template>
     </ProductivityHeader>
 
-    <ProductivityForm />
+    <ProductivityForm :initial-values="props.initialValues" />
   </div>
 </template>

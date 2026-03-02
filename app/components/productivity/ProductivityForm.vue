@@ -6,13 +6,12 @@ import { toast } from 'vue-sonner'
 import { ProductivityFormSchema } from '#shared/schemas/productivities'
 import type { ProductivityForm } from '#shared/schemas/productivities'
 
+const props = defineProps<{ initialValues: ProductivityForm }>()
+
 const { defineField, errors, handleSubmit, isSubmitting, values } =
   useForm<ProductivityForm>({
     validationSchema: toTypedSchema(ProductivityFormSchema),
-    initialValues: {
-      name: '',
-      lastCheck: new Date(),
-    },
+    initialValues: props.initialValues,
   })
 const [name, nameAttrs] = defineField('name')
 const [lastCheck] = defineField('lastCheck')
