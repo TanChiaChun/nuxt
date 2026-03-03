@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 const ProductivityBaseSchema = z.object({
-  name: z.string().min(1, 'Name required').max(256),
+  name: z.string().min(1, 'Name required').max(256).trim(),
 })
 
 export const ProductivityFormSchema = ProductivityBaseSchema.extend({
