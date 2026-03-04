@@ -44,6 +44,7 @@ const onSubmit = handleSubmit(async (values) => {
             v-model="name"
             v-bind="nameAttrs"
             :aria-invalid="!!errors.name"
+            autofocus
           />
           <UiFieldError v-if="!!errors.name" :errors="[errors.name]" />
         </UiField>
