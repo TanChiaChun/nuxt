@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
-import { toast } from 'vue-sonner'
 import { ProductivityFormSchema } from '#shared/schemas/productivities'
 import type { ProductivityForm } from '#shared/schemas/productivities'
 
 const props = defineProps<{ initialValues: ProductivityForm }>()
+const errorMessage = defineModel<string | null>('errorMessage', {
+  required: true,
+})
+const emit = defineEmits<{ submit: [values: ProductivityForm] }>()
 
 const { defineField, errors, handleSubmit, isSubmitting, values } =
   useForm<ProductivityForm>({
@@ -15,8 +18,6 @@ const { defineField, errors, handleSubmit, isSubmitting, values } =
 const [name, nameAttrs] = defineField('name')
 const [lastCheck] = defineField('lastCheck')
 
-const errorMessage = ref<string |null>(null)
-
 watch(values, () => {
   if (errorMessage.value) {
     errorMessage.value = null
@@ -25,19 +26,7 @@ watch(values, () => {
 
 const onSubmit = handleSubmit(async (values) => {
   errorMessage.value = null
-
-  try {
-    await $fetch('/api/productivities', {
-      method: 'POST',
-      body: values,
-    })
-
-    toast.success(`${values.name} successfully created`)
-
-    await navigateTo('/productivities')
-  } catch {
-    errorMessage.value = 'Error creating Productivity'
-  }
+  emit('submit', values)
 })
 </script>
 
