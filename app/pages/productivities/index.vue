@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CircleAlert, FolderCode, Plus } from 'lucide-vue-next'
+import { FolderCode, Plus } from 'lucide-vue-next'
 
 const { data: productivities, status } = await useFetch('/api/productivities')
 </script>
@@ -34,9 +34,9 @@ const { data: productivities, status } = await useFetch('/api/productivities')
         <UiEmptyTitle>No Data</UiEmptyTitle>
       </UiEmpty>
     </div>
-    <UiAlert v-else-if="status === 'error'" variant="destructive">
-      <CircleAlert />
-      <UiAlertTitle>Error loading Productivities</UiAlertTitle>
-    </UiAlert>
+    <BaseErrorAlert
+      v-else-if="status === 'error'"
+      title="Error loading Productivities"
+    />
   </div>
 </template>

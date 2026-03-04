@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
-import { CircleAlert } from 'lucide-vue-next'
 import { toast } from 'vue-sonner'
 import { ProductivityFormSchema } from '#shared/schemas/productivities'
 import type { ProductivityForm } from '#shared/schemas/productivities'
@@ -44,10 +43,7 @@ const onSubmit = handleSubmit(async (values) => {
 
 <template>
   <div class="flex flex-col gap-3">
-    <UiAlert v-if="errorMessage" variant="destructive">
-      <CircleAlert />
-      <UiAlertTitle>{{ errorMessage }}</UiAlertTitle>
-    </UiAlert>
+    <BaseErrorAlert v-if="errorMessage" :title="errorMessage" />
   
     <form @submit="onSubmit">
       <UiFieldGroup>
