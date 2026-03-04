@@ -6,5 +6,7 @@ const initialValues = {
 </script>
 
 <template>
-  <ProductivityFormPage title="New" :initial-values />
+  <ProductivityFormPage title="New">
+    <ProductivityForm :initial-values />
+  </ProductivityFormPage>
 </template>
