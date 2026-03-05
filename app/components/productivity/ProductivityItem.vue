@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Pencil } from 'lucide-vue-next'
 import type { ProductivityResponse } from '#shared/schemas/productivities'
 
 const props = defineProps<{ productivity: ProductivityResponse }>()
@@ -19,5 +20,14 @@ const props = defineProps<{ productivity: ProductivityResponse }>()
         />
       </UiItemDescription>
     </UiItemContent>
+
+    <UiItemActions>
+      <UiButton variant="ghost" as-child size="icon-sm" class="rounded-full">
+        <NuxtLink :to="`/productivities/${props.productivity.id}/edit`"
+        >
+          <Pencil />
+        </NuxtLink>
+      </UiButton>
+    </UiItemActions>
   </UiItem>
 </template>
