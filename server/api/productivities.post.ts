@@ -17,19 +17,10 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  try {
-    const inserted = await db
-      .insert(productivitiesTable)
-      .values(result.data)
-      .returning()
+  const inserted = await queryDb(() => 
+    db.insert(productivitiesTable).values(result.data).returning(),
+  )
 
-    setResponseStatus(event, 201)
-    return inserted
-  } catch (e) {
-    console.error(e)
-    throw createError({
-      status: 500,
-      statusText: 'Server Error'
-    })
-  }
+  setResponseStatus(event, 201)
+  return inserted
 })

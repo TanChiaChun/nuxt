@@ -17,21 +17,13 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  let productivity
-  try {
-    [productivity] = await db
+  const [productivity] = await queryDb(() =>
+    db
       .select()
       .from(productivitiesTable)
       .where(eq(productivitiesTable.id, params.data.id))
-      .limit(1)
-  } catch (e) {
-    console.error(e)
-    throw createError({
-      status: 500,
-      statusText: 'Server Error',
-    })
-  }
-
+      .limit(1),
+  )
   if (!productivity) {
     console.error(`Productivity ID ${params.data.id} not found`)
     throw createError({
