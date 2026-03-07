@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const inserted = await queryDb(() => 
+  const [inserted] = await queryDb(() => 
     db.insert(productivitiesTable).values(result.data).returning(),
   )
 
