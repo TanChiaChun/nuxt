@@ -1,6 +1,5 @@
 import { ProductivityPostSchema } from '#shared/schemas/productivities'
-import { db } from '#server/db/client'
-import { productivitiesTable } from '../db/schema/productivities'
+import { createProductivity } from '#server/services/productivities.services'
 
 export default defineEventHandler(async (event) => {
   const result = await readValidatedBody(
@@ -17,9 +16,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const [inserted] = await queryDb(() => 
-    db.insert(productivitiesTable).values(result.data).returning(),
-  )
+  const inserted = await createProductivity(result.data)
 
   setResponseStatus(event, 201)
   return inserted

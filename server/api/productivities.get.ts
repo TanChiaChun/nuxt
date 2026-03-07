@@ -1,6 +1,5 @@
-import { db } from '#server/db/client'
-import { productivitiesTable } from '#server/db/schema/productivities'
+import { getProductivities } from '#server/services/productivities.services'
 
 export default defineEventHandler((event) => {
-  return queryDb(() => db.select().from(productivitiesTable))
+  return getProductivities()
 })

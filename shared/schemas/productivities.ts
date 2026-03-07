@@ -18,4 +18,5 @@ export const ProductivityResponseSchema = ProductivityBaseSchema.extend({
 })
 
 export type ProductivityForm = z.infer<typeof ProductivityFormSchema>
+export type ProductivityPost = z.infer<typeof ProductivityPostSchema>
 export type ProductivityResponse = z.infer<typeof ProductivityResponseSchema>
