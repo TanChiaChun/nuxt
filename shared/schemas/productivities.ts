@@ -8,7 +8,7 @@ export const ProductivityFormSchema = ProductivityBaseSchema.extend({
   lastCheck: z.date(),
 })
 
-export const ProductivityPostSchema = ProductivityBaseSchema.extend({
+export const ProductivityRequestSchema = ProductivityBaseSchema.extend({
   lastCheck: z.coerce.date(),
 })
 
@@ -18,5 +18,5 @@ export const ProductivityResponseSchema = ProductivityBaseSchema.extend({
 })
 
 export type ProductivityForm = z.infer<typeof ProductivityFormSchema>
-export type ProductivityPost = z.infer<typeof ProductivityPostSchema>
+export type ProductivityRequest = z.infer<typeof ProductivityRequestSchema>
 export type ProductivityResponse = z.infer<typeof ProductivityResponseSchema>

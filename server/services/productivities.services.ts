@@ -1,9 +1,9 @@
 import { eq } from 'drizzle-orm'
 import { db } from '#server/db/client'
 import { productivitiesTable } from '#server/db/schema/productivities'
-import type { ProductivityPost } from '#shared/schemas/productivities'
+import type { ProductivityRequest } from '#shared/schemas/productivities'
 
-export async function createProductivity(productivity: ProductivityPost) {
+export async function createProductivity(productivity: ProductivityRequest) {
   const [newProductivity] = await queryDb(() =>
     db.insert(productivitiesTable).values(productivity).returning(),
   )

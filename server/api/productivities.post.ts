@@ -1,8 +1,8 @@
-import { ProductivityPostSchema } from '#shared/schemas/productivities'
+import { ProductivityRequestSchema } from '#shared/schemas/productivities'
 import { createProductivity } from '#server/services/productivities.services'
 
 export default defineEventHandler(async (event) => {
-  const body = await getBody(event, ProductivityPostSchema)
+  const body = await getBody(event, ProductivityRequestSchema)
 
   const inserted = await createProductivity(body)
 
