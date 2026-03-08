@@ -34,3 +34,24 @@ export async function getProductivityById(id: number) {
 
   return productivity
 }
+
+export async function updateProductivity(
+  id: number,
+  productivity: ProductivityRequest,
+) {
+  const [updatedProductivity] = await queryDb(() =>
+    db
+      .update(productivitiesTable)
+      .set(productivity)
+      .where(eq(productivitiesTable.id, id))
+      .returning(),
+  )
+
+  if (!updatedProductivity) {
+    console.error(`Productivity ID ${id} not found`)
+    throw createError({
+      status: 404,
+      statusText: 'Not Found',
+    })
+  }
+}
