@@ -12,7 +12,9 @@ export async function createProductivity(productivity: ProductivityRequest) {
 }
 
 export function getProductivities() {
-  return queryDb(() => db.select().from(productivitiesTable))
+  return queryDb(() =>
+    db.select().from(productivitiesTable).orderBy(productivitiesTable.id),
+  )
 }
 
 export async function getProductivityById(id: number) {
