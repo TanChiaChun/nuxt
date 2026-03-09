@@ -4,11 +4,13 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { ProductivityFormSchema } from '#shared/schemas/productivities'
 import type { ProductivityForm } from '#shared/schemas/productivities'
 
-const props = defineProps<{ initialValues: ProductivityForm }>()
+const props = defineProps<{
+  initialValues: ProductivityForm
+  submitForm: (values: ProductivityForm) => Promise<void>
+}>()
 const errorMessage = defineModel<string | null>('errorMessage', {
   required: true,
 })
-const emit = defineEmits<{ submit: [values: ProductivityForm] }>()
 
 const { defineField, errors, handleSubmit, isSubmitting, values } =
   useForm<ProductivityForm>({
@@ -26,7 +28,7 @@ watch(values, () => {
 
 const onSubmit = handleSubmit(async (values) => {
   errorMessage.value = null
-  emit('submit', values)
+  await props.submitForm(values)
 })
 </script>
 

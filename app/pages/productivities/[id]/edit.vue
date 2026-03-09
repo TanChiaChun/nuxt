@@ -15,7 +15,7 @@ const { data, status } = await useFetch(
   },
 )
 
-async function onSubmit(values: ProductivityForm) {
+async function submitForm(values: ProductivityForm) {
   try {
     await $fetch(`/api/productivities/${route.params.id}`, {
       method: 'PUT',
@@ -37,7 +37,7 @@ async function onSubmit(values: ProductivityForm) {
       v-if="status === 'success' && data"
       :initial-values="data"
       v-model:error-message="errorMessage"
-      @submit="onSubmit"
+      :submit-form
     />
     <BaseErrorAlert v-else title="Error loading Productivity" />
     

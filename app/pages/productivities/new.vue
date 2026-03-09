@@ -8,7 +8,7 @@ const initialValues = {
   lastCheck: new Date(),
 }
 
-async function onSubmit(values: ProductivityForm) {
+async function submitForm(values: ProductivityForm) {
   try {
     await $fetch('/api/productivities', {
       method: 'POST',
@@ -28,7 +28,7 @@ async function onSubmit(values: ProductivityForm) {
   <ProductivityFormPage title="New">
     <ProductivityForm
       :initial-values
-      @submit="onSubmit"
+      :submit-form
       v-model:error-message="errorMessage"
     />
   </ProductivityFormPage>
