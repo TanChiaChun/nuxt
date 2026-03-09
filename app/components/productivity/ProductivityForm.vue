@@ -12,7 +12,7 @@ const errorMessage = defineModel<string | null>('errorMessage', {
   required: true,
 })
 
-const { defineField, errors, handleSubmit, isSubmitting, values } =
+const { defineField, errors, handleSubmit, isSubmitting, meta, values } =
   useForm<ProductivityForm>({
     validationSchema: toTypedSchema(ProductivityFormSchema),
     initialValues: props.initialValues,
@@ -57,7 +57,7 @@ const onSubmit = handleSubmit(async (values) => {
         />
   
         <UiField orientation="horizontal">
-          <UiButton type="submit" :disabled="isSubmitting">
+          <UiButton type="submit" :disabled="!meta.dirty || isSubmitting">
             <UiSpinner v-if="isSubmitting" />
             Submit
           </UiButton>
