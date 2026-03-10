@@ -26,13 +26,7 @@ export async function getProductivityById(id: number) {
       .limit(1),
   )
 
-  if (!productivity) {
-    console.error(`Productivity ID ${id} not found`)
-    throw createError({
-      status: 404,
-      statusText: 'Not Found',
-    })
-  }
+  assertExists(productivity, `Productivity ID ${id} not found`)
 
   return productivity
 }
@@ -49,11 +43,5 @@ export async function updateProductivity(
       .returning(),
   )
 
-  if (!updatedProductivity) {
-    console.error(`Productivity ID ${id} not found`)
-    throw createError({
-      status: 404,
-      statusText: 'Not Found',
-    })
-  }
+  assertExists(updatedProductivity, `Productivity ID ${id} not found`)
 }
