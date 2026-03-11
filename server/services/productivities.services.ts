@@ -11,6 +11,17 @@ export async function createProductivity(productivity: ProductivityRequest) {
   return newProductivity
 }
 
+export async function deleteProductivity(id: number) {
+  const [deletedProductivity] = await queryDb(() =>
+    db
+      .delete(productivitiesTable)
+      .where(eq(productivitiesTable.id, id))
+      .returning(),
+  )
+
+  assertExists(deletedProductivity, `Productivity ID ${id} not found`)
+}
+
 export function getProductivities() {
   return queryDb(() =>
     db.select().from(productivitiesTable).orderBy(productivitiesTable.id),

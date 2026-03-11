@@ -47,6 +47,20 @@ const onSubmit = handleSubmit(async (values) => {
     errorMessage.value = `Productivity ${mode} error`
   }
 })
+
+async function onDelete() {
+  errorMessage.value = null
+
+  try {
+    await $fetch(`/api/productivities/${props.id}`, { method: 'DELETE' })
+
+    toast.success(`${name.value} successfully deleted`)
+
+    await navigateTo('/productivities')
+  } catch {
+    errorMessage.value = 'Productivity delete error'
+  }
+}
 </script>
 
 <template>
@@ -78,6 +92,22 @@ const onSubmit = handleSubmit(async (values) => {
             <UiSpinner v-if="isSubmitting" />
             Submit
           </UiButton>
+          <UiAlertDialog v-if="props.id">
+            <UiAlertDialogTrigger as-child>
+              <UiButton variant="destructive">Delete</UiButton>
+            </UiAlertDialogTrigger>
+            <UiAlertDialogContent>
+              <UiAlertDialogHeader>
+                <UiAlertDialogTitle>Delete {{ name }}?</UiAlertDialogTitle>
+              </UiAlertDialogHeader>
+              <UiAlertDialogFooter>
+                <UiAlertDialogCancel>Cancel</UiAlertDialogCancel>
+                <UiAlertDialogAction @click="onDelete">
+                  Delete
+                </UiAlertDialogAction>
+              </UiAlertDialogFooter>
+            </UiAlertDialogContent>
+          </UiAlertDialog>
         </UiField>
       </UiFieldGroup>
     </form>
