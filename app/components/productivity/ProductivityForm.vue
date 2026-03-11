@@ -87,7 +87,7 @@ async function onDelete() {
           :error-message="errors.lastCheck"
         />
   
-        <UiField orientation="horizontal">
+        <UiField orientation="responsive">
           <UiButton type="submit" :disabled="!meta.dirty || isSubmitting">
             <UiSpinner v-if="isSubmitting" />
             Submit
