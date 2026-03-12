@@ -46,6 +46,13 @@ export async function updateProductivity(
   id: number,
   productivity: ProductivityRequest,
 ) {
+  await updateProductivityPartial(id, productivity)
+}
+
+export async function updateProductivityPartial(
+  id: number,
+  productivity: Partial<ProductivityRequest>,
+) {
   const [updatedProductivity] = await queryDb(() =>
     db
       .update(productivitiesTable)

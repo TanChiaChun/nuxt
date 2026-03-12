@@ -23,10 +23,18 @@ export function useProductivity() {
     })
   }
 
+  function updateProductivityLastCheck(id: number, lastCheck: Date) {
+    return $fetch(`/api/productivities/${id}`, {
+      method: 'PATCH',
+      body: { lastCheck: lastCheck },
+    })
+  }
+
   return {
     createProductivity,
     deleteProductivity,
     getProductivities,
     updateProductivity,
+    updateProductivityLastCheck,
   }
 }
