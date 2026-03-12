@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { FolderCode, Plus } from 'lucide-vue-next'
 
-const { data: productivities, status } = await useFetch('/api/productivities')
+const { getProductivities } = useProductivity()
+
+const { data: productivities, status } = await getProductivities()
 </script>
 
 <template>

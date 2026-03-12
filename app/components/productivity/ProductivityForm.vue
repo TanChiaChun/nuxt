@@ -5,16 +5,15 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { ProductivityFormSchema } from '#shared/schemas/productivities'
 import type { ProductivityForm } from '#shared/schemas/productivities'
 
+const { createProductivity, deleteProductivity, updateProductivity } =
+  useProductivity()
+
 const props = defineProps<{
   initialValues: ProductivityForm
   id?: number
 }>()
 
 const mode = props.id ? 'update' : 'create'
-const url = props.id
-  ? `/api/productivities/${props.id}`
-  : '/api/productivities'
-const method = props.id ? 'PUT' : 'POST'
 const errorMessage = ref<string | null>(null)
 
 const { defineField, errors, handleSubmit, isSubmitting, meta, values } =
@@ -35,10 +34,11 @@ const onSubmit = handleSubmit(async (values) => {
   errorMessage.value = null
 
   try {
-    await $fetch(url, {
-      method: method,
-      body: values,
-    })
+    if (props.id) {
+      await updateProductivity(props.id, values)
+    } else {
+      await createProductivity(values)
+    }
 
     toast.success(`${values.name} ${mode} success`)
 
@@ -49,10 +49,14 @@ const onSubmit = handleSubmit(async (values) => {
 })
 
 async function onDelete() {
+  if (props.id === undefined) {
+    return
+  }
+
   errorMessage.value = null
 
   try {
-    await $fetch(`/api/productivities/${props.id}`, { method: 'DELETE' })
+    await deleteProductivity(props.id)
 
     toast.success(`${name.value} successfully deleted`)
 
