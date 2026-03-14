@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useIntervalFn, useNow } from '@vueuse/core'
 import { toast } from 'vue-sonner'
 import { Pencil, RefreshCcw } from 'lucide-vue-next'
 import type { ProductivityResponse } from '#shared/schemas/productivities'
@@ -6,7 +7,21 @@ import type { ProductivityResponse } from '#shared/schemas/productivities'
 const { updateProductivityLastCheck } = useProductivity()
 
 const props = defineProps<{ productivity: ProductivityResponse }>()
+
 const lastCheck = shallowRef(new Date(props.productivity.lastCheck))
+
+const now = useNow({ scheduler: cb => useIntervalFn(cb, 1000) })
+const borderClass = computed(() => {
+  const elapsedMs = now.value.getTime() - lastCheck.value.getTime()
+  const elapsedHours = elapsedMs / 1000 / 60 / 60
+
+  if (elapsedHours < 1) {
+    return 'border-l-green-500'
+  } else if (elapsedHours < 2) {
+    return 'border-l-yellow-500'
+  }
+  return 'border-l-red-500'
+})
 
 async function onUpdate() {
   const newLastCheck = new Date()
@@ -23,7 +38,7 @@ async function onUpdate() {
 </script>
 
 <template>
-  <UiItem variant="outline">
+  <UiItem variant="outline" class="border-l-5" :class="borderClass">
     <UiItemContent>
       <UiItemTitle>{{ props.productivity.name }}</UiItemTitle>
       <UiItemDescription>
