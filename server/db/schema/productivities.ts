@@ -4,4 +4,5 @@ export const productivitiesTable = pgTable('productivities', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 256 }).notNull(),
   lastCheck: timestamp('last_check').defaultNow().notNull(),
+  previousLastCheck: timestamp('previous_last_check').defaultNow().notNull(),
 })
