@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { H3Event } from '#imports'
+import { RouterParamIdValidationError } from '../errors/errors'
 
 export async function getBody<T extends z.ZodTypeAny>(
   event: H3Event,
@@ -26,11 +27,10 @@ export async function getRouterParamId(event: H3Event) {
   )
 
   if (!params.success) {
-    console.error(params.error.issues)
-    throw createError({
-      status: 400,
-      statusText: 'Invalid ID', 
-    })
+    throw new RouterParamIdValidationError(
+      params.error.issues,
+      'Invalid router param ID'
+    )
   }
 
   return params.data.id

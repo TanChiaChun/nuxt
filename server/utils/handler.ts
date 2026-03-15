@@ -1,4 +1,7 @@
-import { DatabaseNotFoundError } from "#server/errors/errors"
+import {
+  DatabaseNotFoundError,
+  RouterParamIdValidationError,
+} from "#server/errors/errors"
 
 export function defineSafeEventHandler<
   Request extends EventHandlerRequest,
@@ -12,6 +15,9 @@ export function defineSafeEventHandler<
 
       if (e instanceof DatabaseNotFoundError) {
         throw createError({ status: 404, statusText: 'Not Found' })
+      } else if (e instanceof RouterParamIdValidationError) {
+        console.error(e.errorIssues)
+        throw createError({ status: 400, statusText: 'Invalid ID' })
       }
       throw createError({ status: 500, statusText: 'Server Error' })
     }
