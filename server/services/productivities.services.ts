@@ -2,6 +2,7 @@ import { eq } from 'drizzle-orm'
 import { db } from '#server/db/client'
 import { productivitiesTable } from '#server/db/schema/productivities'
 import type { ProductivityRequest } from '#shared/schemas/productivities'
+import { DatabaseNotFoundError } from '#server/errors/errors'
 
 export async function createProductivity(productivity: ProductivityRequest) {
   const [newProductivity] = await db
@@ -18,7 +19,9 @@ export async function deleteProductivity(id: number) {
     .where(eq(productivitiesTable.id, id))
     .returning()
 
-  assertExists(deletedProductivity, `Productivity ID ${id} not found`)
+  if (!deletedProductivity) {
+    throw new DatabaseNotFoundError(`Productivity ID ${id} not found`)
+  }
 }
 
 export function getProductivities() {
@@ -32,7 +35,9 @@ export async function getProductivityById(id: number) {
     .where(eq(productivitiesTable.id, id))
     .limit(1)
 
-  assertExists(productivity, `Productivity ID ${id} not found`)
+  if (!productivity) {
+    throw new DatabaseNotFoundError(`Productivity ID ${id} not found`)
+  }
 
   return productivity
 }
@@ -54,5 +59,7 @@ export async function updateProductivityPartial(
     .where(eq(productivitiesTable.id, id))
     .returning()
 
-  assertExists(updatedProductivity, `Productivity ID ${id} not found`)
+  if (!updatedProductivity) {
+    throw new DatabaseNotFoundError(`Productivity ID ${id} not found`)
+  }
 }

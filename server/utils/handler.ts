@@ -1,3 +1,5 @@
+import { DatabaseNotFoundError } from "#server/errors/errors"
+
 export function defineSafeEventHandler<
   Request extends EventHandlerRequest,
   Response,
@@ -7,10 +9,11 @@ export function defineSafeEventHandler<
       return await handler(event)
     } catch (e) {
       console.error(e)
-      throw createError({
-        status: 500,
-        statusText: 'Server Error',
-      })
+
+      if (e instanceof DatabaseNotFoundError) {
+        throw createError({ status: 404, statusText: 'Not Found' })
+      }
+      throw createError({ status: 500, statusText: 'Server Error' })
     }
   })
 }
