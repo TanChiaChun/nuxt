@@ -1,6 +1,6 @@
 import { deleteProductivity } from "#server/services/productivities.services"
 
-export default defineEventHandler(async (event) => {
+export default defineSafeEventHandler(async (event) => {
   const id = await getRouterParamId(event)
 
   await deleteProductivity(id)

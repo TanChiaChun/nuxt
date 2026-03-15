@@ -1,5 +1,5 @@
 import { getProductivities } from '#server/services/productivities.services'
 
-export default defineEventHandler((event) => {
+export default defineSafeEventHandler((event) => {
   return getProductivities()
 })
