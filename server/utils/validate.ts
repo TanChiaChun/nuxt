@@ -1,6 +1,9 @@
 import { z } from 'zod'
 import type { H3Event } from '#imports'
-import { RouterParamIdValidationError } from '../errors/errors'
+import {
+  BodyValidationError,
+  RouterParamIdValidationError,
+} from '../errors/errors'
 
 export async function getBody<T extends z.ZodTypeAny>(
   event: H3Event,
@@ -9,12 +12,7 @@ export async function getBody<T extends z.ZodTypeAny>(
   const result = await readValidatedBody(event, schema.safeParse)
 
   if (!result.success) {
-    console.error(result.error.issues)
-    throw createError({
-      status: 400,
-      statusText: 'Validation Error',
-      data: result.error.issues,
-    })
+    throw new BodyValidationError(result.error.issues, 'Body validation error')
   }
 
   return result.data

@@ -14,4 +14,6 @@ class ValidationError extends Error {
   }
 }
 
+export class BodyValidationError extends ValidationError {}
+
 export class RouterParamIdValidationError extends ValidationError {}

@@ -1,4 +1,5 @@
 import {
+  BodyValidationError,
   DatabaseNotFoundError,
   RouterParamIdValidationError,
 } from "#server/errors/errors"
@@ -18,6 +19,13 @@ export function defineSafeEventHandler<
       } else if (e instanceof RouterParamIdValidationError) {
         console.error(e.errorIssues)
         throw createError({ status: 400, statusText: 'Invalid ID' })
+      } else if (e instanceof BodyValidationError) {
+        console.error(e.errorIssues)
+        throw createError({
+          status: 400,
+          statusText: 'Validation Error',
+          data: e.errorIssues,
+        })
       }
       throw createError({ status: 500, statusText: 'Server Error' })
     }
