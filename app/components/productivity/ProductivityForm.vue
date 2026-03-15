@@ -15,6 +15,7 @@ const props = defineProps<{
 
 const mode = props.id ? 'update' : 'create'
 const errorMessage = ref<string | null>(null)
+const isDeleting = ref(false)
 
 const { defineField, errors, handleSubmit, isSubmitting, meta, values } =
   useForm<ProductivityForm>({
@@ -54,6 +55,7 @@ async function onDelete() {
   }
 
   errorMessage.value = null
+  isDeleting.value = true
 
   try {
     await deleteProductivity(props.id)
@@ -63,6 +65,8 @@ async function onDelete() {
     await navigateTo('/productivities')
   } catch {
     errorMessage.value = 'Productivity delete error'
+  } finally {
+    isDeleting.value = false
   }
 }
 </script>
@@ -98,7 +102,10 @@ async function onDelete() {
           </UiButton>
           <UiAlertDialog v-if="props.id">
             <UiAlertDialogTrigger as-child>
-              <UiButton variant="destructive">Delete</UiButton>
+              <UiButton variant="destructive" :disabled="isDeleting">
+                <UiSpinner v-if="isDeleting" />
+                Delete
+              </UiButton>
             </UiAlertDialogTrigger>
             <UiAlertDialogContent>
               <UiAlertDialogHeader>
