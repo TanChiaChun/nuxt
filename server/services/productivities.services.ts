@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 import { db } from '#server/db/client'
 import { productivitiesTable } from '#server/db/schema/productivities'
 import type { ProductivityRequest } from '#shared/schemas/productivities'
@@ -51,11 +51,20 @@ export async function updateProductivity(
 
 export async function updateProductivityPartial(
   id: number,
-  productivity: Partial<ProductivityRequest>,
+  productivity: Partial<ProductivityRequest> &
+    Pick<ProductivityRequest, 'lastCheck'>,
 ) {
   const [updatedProductivity] = await db
     .update(productivitiesTable)
-    .set(productivity)
+    .set({
+      previousLastCheck: sql`
+      CASE
+        WHEN last_check <> ${productivity.lastCheck} THEN last_check
+        ELSE previous_last_check
+      END
+      `,
+      ...productivity,
+    })
     .where(eq(productivitiesTable.id, id))
     .returning()
 

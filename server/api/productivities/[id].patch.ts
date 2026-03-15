@@ -3,7 +3,10 @@ import { updateProductivityPartial } from '#server/services/productivities.servi
 
 export default defineSafeEventHandler(async (event) => {
   const id = await getRouterParamId(event)
-  const body = await getBody(event, ProductivityRequestSchema.partial())
+  const body = await getBody(
+    event,
+    ProductivityRequestSchema.partial().required({ lastCheck: true }),
+  )
 
   await updateProductivityPartial(id, body)
 
