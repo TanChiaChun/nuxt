@@ -14,7 +14,7 @@ export const ProductivityRequestSchema = ProductivityBaseSchema.extend({
 
 export const ProductivityResponseSchema = ProductivityBaseSchema.extend({
   id: z.number(),
-  lastCheck: z.string().datetime(),
+  lastCheck: z.date(),
 })
 
 export type ProductivityForm = z.infer<typeof ProductivityFormSchema>

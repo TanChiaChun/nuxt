@@ -9,7 +9,7 @@ const { updateProductivityLastCheck } = useProductivity()
 const props = defineProps<{ productivity: ProductivityResponse }>()
 
 const isUpdating = ref(false)
-const lastCheck = shallowRef(new Date(props.productivity.lastCheck))
+const lastCheck = shallowRef(props.productivity.lastCheck)
 
 const now = useNow({ scheduler: cb => useIntervalFn(cb, 1000) })
 const borderClass = computed(() => {

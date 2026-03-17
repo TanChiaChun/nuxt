@@ -13,7 +13,12 @@ export function useProductivity() {
   }
 
   function getProductivities() {
-    return useFetch('/api/productivities')
+    return useFetch('/api/productivities', {
+      transform: productivities => productivities.map(productivity => ({
+        ...productivity,
+        lastCheck: new Date(productivity.lastCheck),
+      }))
+    })
   }
 
   function getProductivity(id: number) {
