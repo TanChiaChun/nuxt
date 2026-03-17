@@ -16,6 +16,15 @@ export function useProductivity() {
     return useFetch('/api/productivities')
   }
 
+  function getProductivity(id: number) {
+    return useFetch(`/api/productivities/${id}`, {
+      transform: productivity => ({
+        ...productivity,
+        lastCheck: new Date(productivity.lastCheck),
+      })
+    })
+  }
+
   function updateProductivity(id: number, productivity: ProductivityForm) {
     return $fetch(`/api/productivities/${id}`, {
       method: 'PUT',
@@ -33,6 +42,7 @@ export function useProductivity() {
   return {
     createProductivity,
     deleteProductivity,
+    getProductivity,
     getProductivities,
     updateProductivity,
     updateProductivityLastCheck,

@@ -1,15 +1,8 @@
 <script setup lang="ts">
+const { getProductivity } = useProductivity()
 const id = useRouteParamsId()
 
-const { data, status } = await useFetch(
-  `/api/productivities/${id}`,
-  {
-    transform: productivity => ({
-      ...productivity,
-      lastCheck: new Date(productivity.lastCheck),
-    }),
-  },
-)
+const { data, status } = await getProductivity(id)
 if (status.value === 'error') {
   throw createError({ status: 404, statusText: 'Page Not Found' })
 }
