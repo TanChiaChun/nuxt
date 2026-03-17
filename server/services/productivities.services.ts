@@ -8,7 +8,7 @@ export async function createProductivity(productivity: ProductivityRequest) {
   const [newProductivity] = await db
     .insert(productivitiesTable)
     .values(productivity)
-    .returning()
+    .returning({ id: productivitiesTable.id })
 
   if (!newProductivity) {
     throw new DatabaseNotFoundError('Productivity not created')
@@ -19,7 +19,7 @@ export async function deleteProductivity(id: number) {
   const [deletedProductivity] = await db
     .delete(productivitiesTable)
     .where(eq(productivitiesTable.id, id))
-    .returning()
+    .returning({ id: productivitiesTable.id })
 
   if (!deletedProductivity) {
     throw new DatabaseNotFoundError(`Productivity ID ${id} not found`)
@@ -72,7 +72,7 @@ export async function updateProductivityPartial(
       ...productivity,
     })
     .where(eq(productivitiesTable.id, id))
-    .returning()
+    .returning({ id: productivitiesTable.id })
 
   if (!updatedProductivity) {
     throw new DatabaseNotFoundError(`Productivity ID ${id} not found`)
