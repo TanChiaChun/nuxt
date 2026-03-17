@@ -25,7 +25,11 @@ export async function deleteProductivity(id: number) {
 }
 
 export function getProductivities() {
-  return db.select().from(productivitiesTable).orderBy(productivitiesTable.id)
+  return db.select({
+    id: productivitiesTable.id,
+    name: productivitiesTable.name,
+    lastCheck: productivitiesTable.lastCheck,
+  }).from(productivitiesTable).orderBy(productivitiesTable.id)
 }
 
 export async function getProductivityById(id: number) {
