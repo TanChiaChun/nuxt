@@ -10,7 +10,9 @@ export async function createProductivity(productivity: ProductivityRequest) {
     .values(productivity)
     .returning()
 
-  return newProductivity
+  if (!newProductivity) {
+    throw new DatabaseNotFoundError('Productivity not created')
+  }
 }
 
 export async function deleteProductivity(id: number) {
