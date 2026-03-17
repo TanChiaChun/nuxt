@@ -1,8 +1,8 @@
 <script setup lang="ts">
-const route = useRoute()
+const id = useRouteParamsId()
 
 const { data, status } = await useFetch(
-  `/api/productivities/${route.params.id}`,
+  `/api/productivities/${id}`,
   {
     transform: productivity => ({
       ...productivity,
@@ -10,6 +10,9 @@ const { data, status } = await useFetch(
     }),
   },
 )
+if (status.value === 'error') {
+  throw createError({ status: 404, statusText: 'Page Not Found' })
+}
 </script>
 
 <template>
@@ -17,7 +20,7 @@ const { data, status } = await useFetch(
     <ProductivityForm
       v-if="status === 'success' && data"
       :initial-values="data"
-      :id="Number(route.params.id)"
+      :id
     />
     <BaseErrorAlert v-else title="Error loading Productivity" />
     
