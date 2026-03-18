@@ -114,19 +114,28 @@ async function onDelete() {
             type="button"
             variant="secondary"
             @click="onUndo"
+            class="hover:bg-primary/60 hover:text-primary-foreground"
           >
             Undo
           </UiButton>
         </div>
 
         <UiField orientation="responsive">
-          <UiButton type="submit" :disabled="!meta.dirty || isSubmitting">
+          <UiButton
+            type="submit"
+            :disabled="!meta.dirty || isSubmitting"
+            class="hover:bg-primary/70"
+          >
             <UiSpinner v-if="isSubmitting" />
             Submit
           </UiButton>
           <UiAlertDialog v-if="props.id">
             <UiAlertDialogTrigger as-child>
-              <UiButton variant="destructive" :disabled="isDeleting">
+              <UiButton
+                variant="destructive"
+                :disabled="isDeleting"
+                class="hover:bg-destructive/70 dark:hover:bg-destructive/50"
+              >
                 <UiSpinner v-if="isDeleting" />
                 Delete
               </UiButton>
