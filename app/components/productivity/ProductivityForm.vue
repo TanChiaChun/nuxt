@@ -11,6 +11,7 @@ const { createProductivity, deleteProductivity, updateProductivity } =
 const props = defineProps<{
   initialValues: ProductivityForm
   id?: number
+  previousLastCheck?: Date
 }>()
 
 const mode = props.id ? 'update' : 'create'
@@ -25,6 +26,12 @@ const { defineField, errors, handleSubmit, isSubmitting, meta, values } =
 const [name, nameAttrs] = defineField('name')
 const [lastCheck] = defineField('lastCheck')
 
+const canUndo = computed(() => {
+  return (
+    props.previousLastCheck && 
+    props.previousLastCheck.getTime() !== lastCheck.value.getTime()
+  )
+})
 watch(values, () => {
   if (errorMessage.value) {
     errorMessage.value = null
@@ -48,6 +55,12 @@ const onSubmit = handleSubmit(async (values) => {
     errorMessage.value = `Productivity ${mode} error`
   }
 })
+
+async function onUndo() {
+  if (props.previousLastCheck) {
+    lastCheck.value = new Date(props.previousLastCheck)
+  }
+}
 
 async function onDelete() {
   if (props.id === undefined) {
@@ -90,11 +103,22 @@ async function onDelete() {
           <UiFieldError v-if="!!errors.name" :errors="[errors.name]" />
         </UiField>
   
-        <FormDateTimePicker
-          v-model="lastCheck"
-          :error-message="errors.lastCheck"
-        />
-  
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-2 sm:items-end">
+          <FormDateTimePicker
+            v-model="lastCheck"
+            :error-message="errors.lastCheck"
+            class="sm:grow"
+          />
+          <UiButton
+            v-if="canUndo"
+            type="button"
+            variant="secondary"
+            @click="onUndo"
+          >
+            Undo
+          </UiButton>
+        </div>
+
         <UiField orientation="responsive">
           <UiButton type="submit" :disabled="!meta.dirty || isSubmitting">
             <UiSpinner v-if="isSubmitting" />

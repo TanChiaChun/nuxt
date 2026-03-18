@@ -14,6 +14,7 @@ if (status.value === 'error') {
       v-if="status === 'success' && data"
       :initial-values="data"
       :id
+      :previous-last-check="data.previousLastCheck"
     />
     <BaseErrorAlert v-else title="Error loading Productivity" />
     

@@ -26,6 +26,7 @@ export function useProductivity() {
       transform: productivity => ({
         ...productivity,
         lastCheck: new Date(productivity.lastCheck),
+        previousLastCheck: new Date(productivity.previousLastCheck),
       })
     })
   }
