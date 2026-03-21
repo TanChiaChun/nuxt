@@ -32,6 +32,11 @@ const links = PRODUCTIVITY_FREQUENCIES.map((element) => {
       </div>
     </main>
 
-    <UiToaster position="top-center" rich-colors />
+    <UiToaster
+      position="top-center"
+      rich-colors
+      :close-button="true"
+      close-button-position="top-left"
+    />
   </div>
 </template>
