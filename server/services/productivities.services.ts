@@ -1,7 +1,10 @@
 import { eq, sql } from 'drizzle-orm'
 import { db } from '#server/db/client'
 import { productivitiesTable } from '#server/db/schema/productivities'
-import type { ProductivityRequest } from '#shared/schemas/productivities'
+import type {
+  FrequencyEnum,
+  ProductivityRequest,
+} from '#shared/schemas/productivities'
 import { DatabaseNotFoundError } from '#server/errors/errors'
 
 export async function createProductivity(productivity: ProductivityRequest) {
@@ -26,12 +29,16 @@ export async function deleteProductivity(id: number) {
   }
 }
 
-export function getProductivities() {
-  return db.select({
+export function getProductivitiesByFrequency(frequency: FrequencyEnum) {
+  return db
+  .select({
     id: productivitiesTable.id,
     name: productivitiesTable.name,
     lastCheck: productivitiesTable.lastCheck,
-  }).from(productivitiesTable).orderBy(productivitiesTable.id)
+  })
+  .from(productivitiesTable)
+  .where(eq(productivitiesTable.frequency, frequency))
+  .orderBy(productivitiesTable.id)
 }
 
 export async function getProductivityById(id: number) {

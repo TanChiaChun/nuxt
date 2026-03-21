@@ -1,17 +1,29 @@
 <script setup lang="ts">
 import { FolderCode, Plus } from 'lucide-vue-next'
+import { FrequencyEnumSchema } from '#shared/schemas/productivities'
 
-const { getProductivities } = useProductivity()
+const route = useRoute()
+const { getProductivitiesByFrequency } = useProductivity()
 
-const { data: productivities, status } = await getProductivities()
+const result = FrequencyEnumSchema.safeParse(
+  useRequiredRouteParam(route.params.frequency),
+)
+if (!result.success) {
+  throw createError({ status: 404, statusText: 'Page Not Found' })
+}
+const frequency = result.data
+const { data: productivities, status } =
+  await getProductivitiesByFrequency(frequency)
 </script>
 
 <template>
   <div class="flex flex-col gap-5">
-    <ProductivityHeader title="Key">
+    <ProductivityHeader :title="upperCaseFirst(frequency)">
       <template #append>
         <UiButton variant="outline" size="icon" class="rounded-full" as-child>
-          <NuxtLink to="/productivities/new">
+          <NuxtLink
+            :to="{ name: 'productivities-new', query: { redirect: frequency } }"
+          >
             <Plus />
           </NuxtLink>
         </UiButton>
@@ -24,6 +36,7 @@ const { data: productivities, status } = await getProductivities()
           v-for="productivity in productivities"
           :key="productivity.id"
           :productivity
+          :frequency
         />
       </template>
 

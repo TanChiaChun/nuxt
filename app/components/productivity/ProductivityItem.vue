@@ -2,11 +2,17 @@
 import { useIntervalFn, useNow } from '@vueuse/core'
 import { toast } from 'vue-sonner'
 import { Pencil, RefreshCcw } from 'lucide-vue-next'
-import type { ProductivityResponse } from '#shared/schemas/productivities'
+import type {
+  ProductivityResponse,
+  FrequencyEnum,
+} from '#shared/schemas/productivities'
 
 const { updateProductivityLastCheck } = useProductivity()
 
-const props = defineProps<{ productivity: ProductivityResponse }>()
+const props = defineProps<{
+  productivity: ProductivityResponse
+  frequency: FrequencyEnum
+}>()
 
 const isUpdating = ref(false)
 const lastCheck = shallowRef(props.productivity.lastCheck)
@@ -60,7 +66,12 @@ async function onUpdate() {
 
     <UiItemActions>
       <UiButton variant="ghost" as-child size="icon-sm" class="rounded-full">
-        <NuxtLink :to="`/productivities/${props.productivity.id}/edit`"
+        <NuxtLink
+          :to="{
+            name: 'productivities-id-edit',
+            params: { id: props.productivity.id },
+            query: { redirect: props.frequency },
+          }"
         >
           <Pencil />
         </NuxtLink>

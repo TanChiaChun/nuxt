@@ -2,6 +2,7 @@
 import { toast } from 'vue-sonner'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
+import { PRODUCTIVITY_FREQUENCIES } from '#shared/constants'
 import { ProductivityFormSchema } from '#shared/schemas/productivities'
 import type { ProductivityForm } from '#shared/schemas/productivities'
 
@@ -25,6 +26,7 @@ const { defineField, errors, handleSubmit, isSubmitting, meta, values } =
   })
 const [name, nameAttrs] = defineField('name')
 const [lastCheck] = defineField('lastCheck')
+const [frequency, frequencyAttrs] = defineField('frequency')
 
 const canUndo = computed(() => {
   return (
@@ -50,7 +52,7 @@ const onSubmit = handleSubmit(async (values) => {
 
     toast.success(`${values.name} ${mode} success`)
 
-    await navigateTo('/productivities')
+    await navigateTo(`/productivities/${values.frequency}`)
   } catch {
     errorMessage.value = `Productivity ${mode} error`
   }
@@ -75,7 +77,7 @@ async function onDelete() {
 
     toast.success(`${name.value} successfully deleted`)
 
-    await navigateTo('/productivities')
+    await navigateTo(`/productivities/${frequency.value}`)
   } catch {
     errorMessage.value = 'Productivity delete error'
   } finally {
@@ -90,6 +92,26 @@ async function onDelete() {
   
     <form @submit="onSubmit">
       <UiFieldGroup>
+        <UiField :data-invalid="!!errors.frequency">
+          <UiFieldLabel for="frequency-select">Frequency</UiFieldLabel>
+          <UiNativeSelect 
+            id="frequency-select" 
+            v-model="frequency" 
+            v-bind="frequencyAttrs" 
+            :aria-invalid="!!errors.frequency"
+          >
+            <UiNativeSelectOption
+              v-for="frequency in PRODUCTIVITY_FREQUENCIES" :value="frequency"
+            >
+              {{ upperCaseFirst(frequency) }}
+            </UiNativeSelectOption>
+          </UiNativeSelect>
+          <UiFieldError
+            v-if="!!errors.frequency"
+            :errors="[errors.frequency]"
+          />
+        </UiField>
+
         <UiField :data-invalid="!!errors.name">
           <UiFieldLabel for="name">Name</UiFieldLabel>
           <UiInput

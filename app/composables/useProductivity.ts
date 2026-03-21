@@ -1,4 +1,7 @@
-import type { ProductivityForm } from '#shared/schemas/productivities'
+import type {
+  FrequencyEnum,
+  ProductivityForm,
+} from '#shared/schemas/productivities'
 
 export function useProductivity() {
   function createProductivity(productivity: ProductivityForm) {
@@ -12,8 +15,9 @@ export function useProductivity() {
     return $fetch(`/api/productivities/${id}`, { method: 'DELETE' })
   }
 
-  function getProductivities() {
+  function getProductivitiesByFrequency(frequency: FrequencyEnum) {
     return useFetch('/api/productivities', {
+      query: { frequency: frequency },
       transform: productivities => productivities.map(productivity => ({
         ...productivity,
         lastCheck: new Date(productivity.lastCheck),
@@ -49,7 +53,7 @@ export function useProductivity() {
     createProductivity,
     deleteProductivity,
     getProductivity,
-    getProductivities,
+    getProductivitiesByFrequency,
     updateProductivity,
     updateProductivityLastCheck,
   }
