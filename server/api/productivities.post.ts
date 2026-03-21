@@ -2,7 +2,7 @@ import { ProductivityRequestSchema } from '#shared/schemas/productivities'
 import { createProductivity } from '#server/services/productivities.services'
 
 export default defineSafeEventHandler(async (event) => {
-  const body = await getBody(event, ProductivityRequestSchema)
+  const body = await validateBody(event, ProductivityRequestSchema)
 
   await createProductivity(body)
 

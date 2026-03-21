@@ -5,7 +5,7 @@ import {
   RouterParamIdValidationError,
 } from '../errors/errors'
 
-export async function getBody<T extends z.ZodTypeAny>(
+export async function validateBody<T extends z.ZodTypeAny>(
   event: H3Event,
   schema: T,
 ): Promise<z.infer<T>> {
@@ -18,7 +18,7 @@ export async function getBody<T extends z.ZodTypeAny>(
   return result.data
 }
 
-export async function getRouterParamId(event: H3Event) {
+export async function validateRouterParamId(event: H3Event) {
   const result = await getValidatedRouterParams(
     event,
     z.object({ id: z.coerce.number() }).safeParse,
