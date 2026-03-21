@@ -123,7 +123,7 @@ async function onDelete() {
         <UiField orientation="responsive">
           <UiButton
             type="submit"
-            :disabled="!meta.dirty || isSubmitting"
+            :disabled="!meta.valid || !meta.dirty || isSubmitting"
             class="hover:bg-primary/70"
           >
             <UiSpinner v-if="isSubmitting" />
