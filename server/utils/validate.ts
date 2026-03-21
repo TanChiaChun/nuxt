@@ -19,17 +19,17 @@ export async function getBody<T extends z.ZodTypeAny>(
 }
 
 export async function getRouterParamId(event: H3Event) {
-  const params = await getValidatedRouterParams(
+  const result = await getValidatedRouterParams(
     event,
     z.object({ id: z.coerce.number() }).safeParse,
   )
 
-  if (!params.success) {
+  if (!result.success) {
     throw new RouterParamIdValidationError(
-      params.error.issues,
+      result.error.issues,
       'Invalid router param ID'
     )
   }
 
-  return params.data.id
+  return result.data.id
 }
