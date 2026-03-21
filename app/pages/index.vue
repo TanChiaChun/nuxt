@@ -1,7 +1,9 @@
-<template>
-  <div class="mx-auto max-w-sm flex flex-col gap-5">
-    <UiButton variant="outline" size="lg" as-child>
-      <NuxtLink to="/productivities">Productivity</NuxtLink>
-    </UiButton>
-  </div>
-</template>
+<script setup lang="ts">
+import { PRODUCTIVITY_FREQUENCIES } from '#shared/constants';
+
+definePageMeta({
+  middleware: (to, from) => {
+    return navigateTo(`/productivities/${PRODUCTIVITY_FREQUENCIES[0]}`)
+  }
+})
+</script>
