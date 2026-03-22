@@ -1,5 +1,5 @@
 import { eq, sql } from 'drizzle-orm'
-import { db } from '#server/db/client'
+import { db } from '#server/db/db'
 import { productivitiesTable } from '#server/db/schema/productivities'
 import type {
   FrequencyEnum,
