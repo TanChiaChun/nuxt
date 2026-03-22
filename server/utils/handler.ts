@@ -3,7 +3,7 @@ import {
   DatabaseNotFoundError,
   QueryValidationError,
   RouterParamIdValidationError,
-} from "#server/errors/errors"
+} from "#server/errors"
 
 export function defineSafeEventHandler<
   Request extends EventHandlerRequest,

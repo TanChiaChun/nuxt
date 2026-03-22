@@ -4,7 +4,7 @@ import {
   BodyValidationError,
   QueryValidationError,
   RouterParamIdValidationError,
-} from '../errors/errors'
+} from '#server/errors'
 
 export async function validateBody<T extends z.ZodTypeAny>(
   event: H3Event,

@@ -5,7 +5,7 @@ import type {
   FrequencyEnum,
   ProductivityRequest,
 } from '#shared/schemas'
-import { DatabaseNotFoundError } from '#server/errors/errors'
+import { DatabaseNotFoundError } from '#server/errors'
 
 export async function createProductivity(productivity: ProductivityRequest) {
   const [newProductivity] = await db
