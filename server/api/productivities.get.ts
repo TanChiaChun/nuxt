@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { getProductivitiesByFrequency } from '#server/services/productivities.services'
+import { getProductivitiesByFrequency } from '#server/services/productivities'
 import { FrequencyEnumSchema } from '#shared/schemas'
 
 export default defineSafeEventHandler(async (event) => {

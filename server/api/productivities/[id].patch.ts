@@ -1,5 +1,5 @@
 import { ProductivityRequestSchema } from "#shared/schemas"
-import { updateProductivityPartial } from '#server/services/productivities.services'
+import { updateProductivityPartial } from '#server/services/productivities'
 
 export default defineSafeEventHandler(async (event) => {
   const id = await validateRouterParamId(event)
