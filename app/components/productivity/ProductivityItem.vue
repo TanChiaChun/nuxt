@@ -2,6 +2,7 @@
 import { useIntervalFn, useNow } from '@vueuse/core'
 import { toast } from 'vue-sonner'
 import { Pencil, RefreshCcw } from 'lucide-vue-next'
+import { PRODUCTIVITY_TIME_THRESHOLDS } from '~/constants'
 import type {
   ProductivityResponse,
   FrequencyEnum,
@@ -19,14 +20,25 @@ const lastCheck = shallowRef(props.productivity.lastCheck)
 
 const now = useNow({ scheduler: cb => useIntervalFn(cb, 1000) })
 const borderClass = computed(() => {
-  const elapsedMs = now.value.getTime() - lastCheck.value.getTime()
-  const elapsedHours = elapsedMs / 1000 / 60 / 60
+  const dayDiff = getDayDiff(lastCheck.value, now.value)
 
-  if (elapsedHours < 1) {
-    return 'border-l-green-500'
-  } else if (elapsedHours < 2) {
-    return 'border-l-yellow-500'
+  if (props.frequency === 'key' || props.frequency === 'loop') {
+    if (dayDiff <= 0) {
+      const msDiff = now.value.getTime() - lastCheck.value.getTime()  
+      if (msDiff < hoursToMs(1)) {
+        return 'border-l-green-500'
+      } else if (msDiff < hoursToMs(2)) {
+        return 'border-l-yellow-500'
+      }
+    }
+  } else {
+    if (dayDiff < PRODUCTIVITY_TIME_THRESHOLDS[props.frequency].green) {
+      return 'border-l-green-500'
+    } else if (dayDiff < PRODUCTIVITY_TIME_THRESHOLDS[props.frequency].yellow) {
+      return 'border-l-yellow-500'
+    }
   }
+
   return 'border-l-red-500'
 })
 
