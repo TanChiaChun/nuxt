@@ -1,7 +1,7 @@
 import type {
   FrequencyEnum,
   ProductivityForm,
-} from '#shared/schemas/productivities'
+} from '#shared/schemas'
 
 export function useProductivity() {
   function createProductivity(productivity: ProductivityForm) {

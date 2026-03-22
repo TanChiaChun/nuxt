@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { getProductivitiesByFrequency } from '#server/services/productivities.services'
-import { FrequencyEnumSchema } from '#shared/schemas/productivities'
+import { FrequencyEnumSchema } from '#shared/schemas'
 
 export default defineSafeEventHandler(async (event) => {
   const query = await validateQuery(

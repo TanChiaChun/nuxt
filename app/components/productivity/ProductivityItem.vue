@@ -5,7 +5,7 @@ import { Pencil, RefreshCcw } from 'lucide-vue-next'
 import type {
   ProductivityResponse,
   FrequencyEnum,
-} from '#shared/schemas/productivities'
+} from '#shared/schemas'
 
 const { updateProductivityLastCheck } = useProductivity()
 

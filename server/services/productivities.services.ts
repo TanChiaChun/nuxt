@@ -4,7 +4,7 @@ import { productivitiesTable } from '#server/db/schema/productivities'
 import type {
   FrequencyEnum,
   ProductivityRequest,
-} from '#shared/schemas/productivities'
+} from '#shared/schemas'
 import { DatabaseNotFoundError } from '#server/errors/errors'
 
 export async function createProductivity(productivity: ProductivityRequest) {

@@ -3,8 +3,8 @@ import { toast } from 'vue-sonner'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { PRODUCTIVITY_FREQUENCIES } from '#shared/constants'
-import { ProductivityFormSchema } from '#shared/schemas/productivities'
-import type { ProductivityForm } from '#shared/schemas/productivities'
+import { ProductivityFormSchema } from '#shared/schemas'
+import type { ProductivityForm } from '#shared/schemas'
 
 const { createProductivity, deleteProductivity, updateProductivity } =
   useProductivity()

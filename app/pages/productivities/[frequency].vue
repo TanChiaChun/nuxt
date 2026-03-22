@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { FolderCode, Plus } from 'lucide-vue-next'
-import { FrequencyEnumSchema } from '#shared/schemas/productivities'
+import { FrequencyEnumSchema } from '#shared/schemas'
 
 const route = useRoute()
 const { getProductivitiesByFrequency } = useProductivity()

@@ -3,7 +3,7 @@ import { PRODUCTIVITY_FREQUENCIES } from '#shared/constants'
 import type {
   FrequencyEnum,
   ProductivityForm
-} from '#shared/schemas/productivities'
+} from '#shared/schemas'
 
 const route = useRoute()
 

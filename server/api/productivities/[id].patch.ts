@@ -1,4 +1,4 @@
-import { ProductivityRequestSchema } from "#shared/schemas/productivities"
+import { ProductivityRequestSchema } from "#shared/schemas"
 import { updateProductivityPartial } from '#server/services/productivities.services'
 
 export default defineSafeEventHandler(async (event) => {
