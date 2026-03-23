@@ -5,11 +5,16 @@ import {
   RouterParamIdValidationError,
 } from "#server/errors"
 
-export function defineSafeEventHandler<
+export function defineProtectedEventHandler<
   Request extends EventHandlerRequest,
   Response,
 >(handler: EventHandler<Request, Response>): EventHandler<Request, Response> {
   return defineEventHandler<Request>(async (event) => {
+    const session = await auth.api.getSession({ headers: event.headers })
+    if (!session) {
+      throw createError({ status: 401, statusText: 'Unauthorized' })
+    }
+
     try {
       return await handler(event)
     } catch (e) {

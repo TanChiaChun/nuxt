@@ -1,7 +1,7 @@
 import { ProductivityRequestSchema } from "#shared/schemas"
 import { updateProductivity } from "#server/services/productivities"
 
-export default defineSafeEventHandler(async (event) => {
+export default defineProtectedEventHandler(async (event) => {
   const id = await validateRouterParamId(event)
   const body = await validateBody(event, ProductivityRequestSchema)
 
