@@ -1,0 +1,12 @@
+{
+  "extends": "./.nuxt/tsconfig.node.json",
+  "include": [
+    "./scripts/**/*"
+  ],
+  "compilerOptions": {
+    "paths": {
+      "#server/*": ["./server/*"]
+    },
+    "types": ["node"]
+  }
+}

@@ -1,8 +1,16 @@
 import { betterAuth } from 'better-auth/minimal'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from '#server/db/db'
+import { user, account } from '#server/db/schema/auth-schema'
 
 export const auth = betterAuth({
-  database: drizzleAdapter(db, { provider: 'pg' }),
-  emailAndPassword: { enabled: true },
+  database: drizzleAdapter(db, {
+    provider: 'pg',
+    schema: { user, account },
+  }),
+  emailAndPassword: {
+    enabled: true,
+    autoSignIn: false,
+    disableSignUp: true,
+  },
 })
