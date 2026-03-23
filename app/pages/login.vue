@@ -50,14 +50,12 @@ const onSubmit = handleSubmit(async (values) => {
     email: values.email,
     password: values.password,
     rememberMe: false,
+    callbackURL: '/',
+  }, {
+    onError: () => {
+      errorMessage.value = 'Error logging in'
+    }
   })
-
-  if (error) {
-    errorMessage.value = 'Error logging in'
-  } else if (data) {
-    toast.success('Successfully log in')
-    await navigateTo('/')
-  }
 })
 </script>
 

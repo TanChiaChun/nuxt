@@ -7,8 +7,7 @@ async function signOut() {
   await authClient.signOut({
     fetchOptions: {
       onSuccess: async () => {
-        toast.success('Successfully log out')
-        await navigateTo('/login')
+        await navigateTo('/login', { external: true })
       },
       onError: () => {
         toast.error('Error logging out')
