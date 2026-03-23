@@ -49,7 +49,7 @@ const onSubmit = handleSubmit(async (values) => {
   const { data, error } = await authClient.signIn.email({
     email: values.email,
     password: values.password,
-    rememberMe: false,
+    rememberMe: true,
     callbackURL: '/',
   }, {
     onError: () => {
