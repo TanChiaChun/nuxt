@@ -2,7 +2,7 @@
 import 'vue-sonner/style.css'
 import { PRODUCTIVITY_FREQUENCIES } from '#shared/constants'
 
-const session = authClient.useSession()
+const { data: session } = await authClient.useSession(useFetch)
 
 const links = PRODUCTIVITY_FREQUENCIES.map((element) => {
   return { label: element, to: `/productivities/${element}` }
@@ -14,7 +14,7 @@ const links = PRODUCTIVITY_FREQUENCIES.map((element) => {
     <NuxtLoadingIndicator />
 
     <header
-      v-if="session.data"
+      v-if="session"
       class="sticky top-0 inset-x-0 bg-background border-b py-2 px-4"
     >
       <div class="sm:hidden">
@@ -41,7 +41,7 @@ const links = PRODUCTIVITY_FREQUENCIES.map((element) => {
     </main>
 
     <div
-      v-if="session.data"
+      v-if="session"
       class="sm:hidden fixed bottom-0 inset-x-0 bg-background border-t py-2"
     >
       <BaseNavBar :links />

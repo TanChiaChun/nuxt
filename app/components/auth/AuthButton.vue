@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toast } from 'vue-sonner'
 
-const session = authClient.useSession()
+const { data: session } = await authClient.useSession(useFetch)
 
 async function signOut() {
   await authClient.signOut({
@@ -18,7 +18,7 @@ async function signOut() {
 </script>
 
 <template>
-  <UiButton v-if="session.data" @click="signOut">Log Out</UiButton>
+  <UiButton v-if="session" @click="signOut">Log Out</UiButton>
   <UiButton v-else as-child>
     <NuxtLink to="/login">Log In</NuxtLink>
   </UiButton >
