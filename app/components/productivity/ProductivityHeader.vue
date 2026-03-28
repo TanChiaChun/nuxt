@@ -8,7 +8,7 @@ const props = defineProps<{ title: string }>()
       <slot name="prepend" />
     </div>
 
-    <h1 class="flex-1 text-2xl font-bold">{{ props.title }}</h1>
+    <BaseHeader class="flex-1" :title="props.title" />
 
     <div v-if="$slots.append">
       <slot name="append" />
