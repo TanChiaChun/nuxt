@@ -27,7 +27,9 @@ const links = PRODUCTIVITY_FREQUENCIES.map((element) => {
 
       <div class="hidden sm:grid grid-cols-3 mx-auto max-w-7xl">
         <div></div>
-        <BaseNavBar :links />
+        <div class="flex justify-center">
+          <BaseNavBar :links />
+        </div>
         <div class="flex justify-end">
           <AuthButton />
         </div>
@@ -42,7 +44,17 @@ const links = PRODUCTIVITY_FREQUENCIES.map((element) => {
 
     <div
       v-if="session"
-      class="sm:hidden fixed bottom-0 inset-x-0 bg-background border-t py-2"
+      class="
+        flex
+        sm:hidden
+        justify-center
+        fixed
+        bottom-0
+        inset-x-0
+        bg-background
+        border-t
+        py-2
+      "
     >
       <BaseNavBar :links />
     </div>
