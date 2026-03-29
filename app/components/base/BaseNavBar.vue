@@ -1,12 +1,14 @@
 <script setup lang="ts">
-const props = defineProps<{ links: { label: string, to: string }[] }>()
+const props = defineProps<{
+  links: { label: string, to: string }[],
+}>()
 </script>
 
 <template>
   <div class="flex justify-center">
     <UiNavigationMenu>
       <UiNavigationMenuList>
-        <UiNavigationMenuItem v-for="link in links" :key="link.label">
+        <UiNavigationMenuItem v-for="link in props.links" :key="link.label">
           <UiNavigationMenuLink class="rounded-full px-5 sm:px-8" as-child>
             <NuxtLink
               :to="link.to"
