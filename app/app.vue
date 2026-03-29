@@ -17,21 +17,14 @@ const links = PRODUCTIVITY_FREQUENCIES.map((element) => {
       v-if="session"
       class="sticky top-0 inset-x-0 bg-background border-b py-2 px-4"
     >
-      <div class="sm:hidden">
+      <div class="grid grid-cols-3">
         <BaseNavDrawer>
           <template v-slot:footerButton>
             <AuthButton />
           </template>
         </BaseNavDrawer>
-      </div>
-
-      <div class="hidden sm:grid grid-cols-3 mx-auto max-w-7xl">
-        <div></div>
-        <div class="flex justify-center">
+        <div class="hidden sm:flex justify-center">
           <BaseNavBar :links />
-        </div>
-        <div class="flex justify-end">
-          <AuthButton />
         </div>
       </div>
     </header>
