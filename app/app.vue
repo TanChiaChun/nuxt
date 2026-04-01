@@ -19,7 +19,7 @@ const links: NavLink[] = PRODUCTIVITY_FREQUENCIES.map((element) => {
       class="sticky top-0 inset-x-0 bg-background border-b py-2 px-4"
     >
       <div class="grid grid-cols-3">
-        <BaseNavDrawer>
+        <BaseNavDrawer :links>
           <template v-slot:footerButton>
             <AuthButton />
           </template>

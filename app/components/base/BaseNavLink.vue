@@ -1,13 +1,23 @@
 <script setup lang="ts">
-const props = defineProps<{ to: string }>()
+const { to, variant = 'default' } = defineProps<{
+  to: string
+  variant?: 'default' | 'bold'
+}>()
 
-const activeClass = [
+const baseActiveClass = [
   'text-sky-600',
   'hover:text-blue-600',
   'dark:text-sky-300',
-  'font-bold',
   'underline',
   'underline-offset-6',
+]
+const variantActiveClass = {
+  default: '',
+  bold: 'font-bold',
+}
+const activeClass = [
+  ...baseActiveClass,
+  variantActiveClass[variant],
 ].join(' ')
 </script>
 
