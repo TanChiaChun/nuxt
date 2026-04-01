@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const props = defineProps<{
-  links: { label: string, to: string }[],
-}>()
+import type { NavLink } from '~/types/nav'
+
+const props = defineProps<{ links: NavLink[] }>()
 </script>
 
 <template>

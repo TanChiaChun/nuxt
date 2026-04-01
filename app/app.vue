@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import 'vue-sonner/style.css'
 import { PRODUCTIVITY_FREQUENCIES } from '#shared/constants'
+import type { NavLink } from '~/types/nav'
 
 const { data: session } = await authClient.useSession(useFetch)
 
-const links = PRODUCTIVITY_FREQUENCIES.map((element) => {
+const links: NavLink[] = PRODUCTIVITY_FREQUENCIES.map((element) => {
   return { label: element, to: `/productivities/${element}` }
 })
 </script>
