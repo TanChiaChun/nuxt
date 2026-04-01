@@ -18,8 +18,15 @@ async function signOut() {
 </script>
 
 <template>
-  <UiButton v-if="session" @click="signOut">Log Out</UiButton>
-  <UiButton v-else as-child>
+  <UiButton
+    v-if="session"
+    variant="ghost"
+    class="justify-start"
+    @click="signOut"
+  >
+    Log Out
+  </UiButton>
+  <UiButton v-else as-child variant="ghost" class="justify-start">
     <NuxtLink to="/login">Log In</NuxtLink>
   </UiButton >
 </template>
