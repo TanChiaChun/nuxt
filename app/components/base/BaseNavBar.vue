@@ -9,19 +9,9 @@ const props = defineProps<{ links: NavLink[] }>()
     <UiNavigationMenuList>
       <UiNavigationMenuItem v-for="link in props.links" :key="link.label">
         <UiNavigationMenuLink class="rounded-full px-5 sm:px-8" as-child>
-          <NuxtLink
-            :to="link.to"
-            active-class="
-              text-sky-600
-              hover:text-blue-600
-              dark:text-sky-300
-              font-bold
-              underline
-              underline-offset-6
-            "
-          >
+          <BaseNavLink :to="link.to">
             {{ upperCaseFirst(link.label) }}
-          </NuxtLink>
+          </BaseNavLink>
         </UiNavigationMenuLink>
       </UiNavigationMenuItem>
     </UiNavigationMenuList>
