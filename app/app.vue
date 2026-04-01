@@ -8,6 +8,10 @@ const { data: session } = await authClient.useSession(useFetch)
 const links: NavLink[] = PRODUCTIVITY_FREQUENCIES.map((element) => {
   return { label: element, to: `/productivities/${element}` }
 })
+const drawerLinks: NavLink[] = [
+  ...links,
+  { label: 'credits', to: '/credits' },
+]
 </script>
 
 <template>
@@ -19,7 +23,7 @@ const links: NavLink[] = PRODUCTIVITY_FREQUENCIES.map((element) => {
       class="sticky top-0 inset-x-0 bg-background border-b py-2 px-4"
     >
       <div class="grid grid-cols-3">
-        <BaseNavDrawer :links>
+        <BaseNavDrawer :links="drawerLinks">
           <template v-slot:footerButton>
             <AuthButton />
           </template>
