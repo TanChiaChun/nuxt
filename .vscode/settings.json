@@ -1,5 +1,8 @@
 {
     "editor.quickSuggestions": {
         "strings": "on"
+    },
+    "json.schemaDownload.trustedDomains": {
+        "https://openapi.vercel.sh/": true
     }
 }
