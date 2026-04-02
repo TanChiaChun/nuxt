@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FolderCode, Plus } from 'lucide-vue-next'
+import { FolderCode, Plus } from '@lucide/vue'
 import { FrequencyEnumSchema } from '#shared/schemas'
 
 const route = useRoute()

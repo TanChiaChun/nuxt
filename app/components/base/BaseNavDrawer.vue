@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Menu } from 'lucide-vue-next'
+import { Menu } from '@lucide/vue'
 import type { NavLink } from '~/types/nav'
 
 const props = defineProps<{ links: NavLink[] }>()

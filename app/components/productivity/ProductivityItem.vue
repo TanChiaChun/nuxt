@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useIntervalFn, useNow } from '@vueuse/core'
 import { toast } from 'vue-sonner'
-import { Pencil, RefreshCcw } from 'lucide-vue-next'
+import { Pencil, RefreshCcw } from '@lucide/vue'
 import { PRODUCTIVITY_TIME_THRESHOLDS } from '~/constants'
 import type {
   ProductivityResponse,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { fromDate, getLocalTimeZone } from '@internationalized/date'
-import { ChevronDown } from 'lucide-vue-next'
+import { ChevronDown } from '@lucide/vue'
 
 const model = defineModel<Date>({ required: true })
 const props = defineProps<{ errorMessage?: string }>()
