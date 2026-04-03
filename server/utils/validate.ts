@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { H3Event } from '#imports'
+import type { H3Event } from 'h3'
 import {
   BodyValidationError,
   QueryValidationError,

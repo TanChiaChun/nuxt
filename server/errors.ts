@@ -1,4 +1,4 @@
-import { ZodIssue } from 'zod'
+import type { ZodIssue } from 'zod'
 
 export class DatabaseNotFoundError extends Error {}
 
