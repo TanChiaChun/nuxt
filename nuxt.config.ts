@@ -35,7 +35,6 @@ export default defineNuxtConfig({
   },
   modules: [
     '@nuxtjs/color-mode',
-    '@nuxt/image',
     'shadcn-nuxt',
   ],
 })
