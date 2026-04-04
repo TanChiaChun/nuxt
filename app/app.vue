@@ -7,9 +7,10 @@ import type { NavLink } from '~/types/nav'
 
 const { data: session } = await authClient.useSession(useFetch)
 
-const breakpoints = useBreakpoints(breakpointsTailwind)
+const breakpoints = useBreakpoints(breakpointsTailwind, { ssrWidth: 402 })
+const isDesktop = breakpoints.greaterOrEqual('sm')
 const toasterPosition = computed<ToasterProps['position']>(() => {
-  return breakpoints.greaterOrEqual('sm').value ? 'top-right' : 'top-center'
+  return isDesktop.value ? 'top-right' : 'top-center'
 })
 
 const links: NavLink[] = PRODUCTIVITY_FREQUENCIES.map((element) => {
