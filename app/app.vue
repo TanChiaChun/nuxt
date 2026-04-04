@@ -1,9 +1,16 @@
 <script setup lang="ts">
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import 'vue-sonner/style.css'
 import { PRODUCTIVITY_FREQUENCIES } from '#shared/constants'
+import type { ToasterProps } from 'vue-sonner'
 import type { NavLink } from '~/types/nav'
 
 const { data: session } = await authClient.useSession(useFetch)
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const toasterPosition = computed<ToasterProps['position']>(() => {
+  return breakpoints.greaterOrEqual('sm').value ? 'top-right' : 'top-center'
+})
 
 const links: NavLink[] = PRODUCTIVITY_FREQUENCIES.map((element) => {
   return { label: element, to: `/productivities/${element}` }
@@ -58,7 +65,7 @@ const drawerLinks: NavLink[] = [
     </div>
 
     <UiToaster
-      position="top-center"
+      :position="toasterPosition"
       rich-colors
       :close-button="true"
       close-button-position="top-left"
