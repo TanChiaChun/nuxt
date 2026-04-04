@@ -25,7 +25,7 @@ const props = defineProps<{ links: NavLink[] }>()
           class="px-4 py-2 hover:bg-accent rounded-sm"
         >
           <UiSheetClose as-child>
-            <BaseNavLink :to="link.to" class="block text-sm font-medium">
+            <BaseNavLink :to="link.to" class="block font-medium">
               {{ upperCaseFirst(link.label) }}
             </BaseNavLink>
           </UiSheetClose>
