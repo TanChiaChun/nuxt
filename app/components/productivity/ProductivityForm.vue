@@ -132,7 +132,7 @@ async function onDelete() {
             class="sm:grow"
           />
           <UiButton
-            v-if="canUndo"
+            :disabled="!canUndo"
             type="button"
             variant="secondary"
             @click="onUndo"
