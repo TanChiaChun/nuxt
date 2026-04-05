@@ -71,12 +71,25 @@ const time = computed({
   
     <UiField :data-invalid="!!errorMessage">
       <UiFieldLabel for="time-picker">Time</UiFieldLabel>
-      <UiInput
-        id="time-picker"
-        type="time"
-        v-model="time"
-        :aria-invalid="!!errorMessage"
-      />
+      <div :aria-invalid="!!errorMessage" class="
+        px-3
+        h-9
+        border
+        border-input
+        rounded-md
+        shadow-xs
+        dark:bg-input/30
+        aria-invalid:border-destructive
+        flex
+        items-center
+      ">
+        <UiInput
+          id="time-picker"
+          type="time"
+          v-model="time"
+          class="px-0 h-auto border-0 shadow-none text-sm dark:bg-transparent"
+        />
+      </div>
     </UiField>
   
     <UiFieldError
