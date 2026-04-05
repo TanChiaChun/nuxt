@@ -121,6 +121,7 @@ async function onDelete() {
             v-bind="nameAttrs"
             :aria-invalid="!!errors.name"
             autofocus
+            class="text-sm"
           />
           <UiFieldError v-if="!!errors.name" :errors="[errors.name]" />
         </UiField>

@@ -47,7 +47,7 @@ const time = computed({
           <UiButton
             id="date-picker"
             variant="outline"
-            class="flex justify-between"
+            class="flex justify-between font-normal"
             :aria-invalid="!!errorMessage"
           >
             <NuxtTime
