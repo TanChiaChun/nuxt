@@ -4,7 +4,8 @@ updates:
 - package-ecosystem: "npm"
   directory: "/"
   schedule:
-    interval: "weekly"
+    interval: "cron"
+    cronjob: "0 0 * * 0"
   versioning-strategy: "increase-if-necessary"
   ignore:
   - dependency-name: "@types/node"
